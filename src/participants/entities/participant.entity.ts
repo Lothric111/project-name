@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 
 @Entity()
 export class Participant {
@@ -14,12 +14,12 @@ export class Participant {
     @Column()
     address: string;
 
-    @Column()
+    @Column({ name: "image_path", nullable: true })
     image_path: string;
 
-    @Column({default:true})
-    is_accepted: boolean;
+    @CreateDateColumn()
+    created_time:Date;
 
-    @Column({default:false})
-    winner: boolean;
+    @Column({ default: true })
+    is_accepted: boolean;
 }

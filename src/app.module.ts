@@ -6,13 +6,23 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import ormconfig from '../ormconfig';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { JwtModule } from '@nestjs/jwt';
+import { WinnersModule } from './winners/winners.module';
 
-console.log(join(__dirname, '..', 'uploads'));
 @Module({
-  imports: [TypeOrmModule.forRoot(ormconfig), ParticipantsModule,ServeStaticModule.forRoot({
+  imports: [
+    TypeOrmModule.forRoot(ormconfig), 
+    ParticipantsModule,
+    AuthModule,
+    UsersModule,
+    WinnersModule,
+    ServeStaticModule.forRoot({
     rootPath: join(__dirname, '..', 'uploads')
-  })],
+  })
+],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, JwtModule],
 })
 export class AppModule {}
